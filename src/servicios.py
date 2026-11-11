@@ -35,6 +35,27 @@ class Servicio(Entidad, ABC):
     def nombre(self): return self._nombre
     @property
     def tarifa_base(self): return self._tarifa_base
+    @property
+    def disponible(self):
+        return self._disponible
+
+    def cambiar_disponibilidad(self, estado):
+        """Permite habilitar o deshabilitar un servicio."""
+
+        if not isinstance(estado, bool):
+            raise ServicioInvalidoError(
+                "La disponibilidad debe ser verdadera o falsa."
+            )
+
+        self._disponible = estado
+
+    def validar_disponibilidad(self):
+        """Impide utilizar un servicio no disponible."""
+
+        if not self.disponible:
+            raise RecursoNoDisponibleError(
+                f"El servicio '{self.nombre}' no está disponible."
+            )
 
     @abstractmethod
     def validar_cantidad(self, cantidad): pass
