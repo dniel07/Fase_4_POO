@@ -1,17 +1,35 @@
-"""Servicios abstractos y especializados."""
+"""
+Módulo: servicios.py
+Descripción: Define la clase abstracta Servicio y sus tres
+implementaciones especializadas para Software FJ.
+"""
+
 from abc import ABC, abstractmethod
 from .entidades import Entidad
-from .excepciones import ServicioInvalidoError, CalculoCostoError
+from .excepciones import (
+    ServicioInvalidoError,
+    CalculoCostoError,
+    RecursoNoDisponibleError
+)
 
 class Servicio(Entidad, ABC):
-    def __init__(self, identificador, nombre, tarifa_base):
+    """
+    Clase abstracta que define las características comunes
+    de los servicios ofrecidos por Software FJ.
+    """
+    
+    def __init__(self, identificador, nombre, tarifa_base, disponible=True):
         super().__init__(identificador)
         if not isinstance(nombre, str) or len(nombre.strip()) < 3:
             raise ServicioInvalidoError("Nombre de servicio inválido.")
-        if isinstance(tarifa_base, bool) or not isinstance(tarifa_base, (int, float)) or tarifa_base < 0:
+        if (isinstance(tarifa_base, bool) or not isinstance(tarifa_base, (int, float)) or tarifa_base < 0):
             raise ServicioInvalidoError("La tarifa debe ser un número no negativo.")
+        if not isinstance(disponible, bool):
+            raise ServicioInvalidoError("La disponibilidad debe ser verdadera o falsa.")
+        
         self._nombre = nombre.strip()
         self._tarifa_base = float(tarifa_base)
+        self._disponible = disponible        
 
     @property
     def nombre(self): return self._nombre
