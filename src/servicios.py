@@ -65,12 +65,30 @@ class Servicio(Entidad, ABC):
     def calcular_costo(self, cantidad=1, impuesto=0.0, descuento=0.0): pass
 
     def _total(self, cantidad, impuesto, descuento):
+        self.validar_disponibilidad()
         self.validar_cantidad(cantidad)
-        if isinstance(impuesto, bool) or not isinstance(impuesto, (int, float)) or not 0 <= impuesto <= 1:
-            raise CalculoCostoError("Impuesto fuera del rango 0 a 1.")
-        if isinstance(descuento, bool) or not isinstance(descuento, (int, float)) or not 0 <= descuento <= 1:
-            raise CalculoCostoError("Descuento fuera del rango 0 a 1.")
-        return round(self.tarifa_base * cantidad * (1-descuento) * (1+impuesto), 2)
+        for nombre, valor in (
+            ("Impuesto", impuesto),
+            ("Descuento", descuento)
+        ):
+
+            if (
+                isinstance(valor, bool)
+                or not isinstance(valor, (int, float))
+                or not 0 <= valor <= 1
+            ):
+                raise CalculoCostoError(
+                    f"{nombre} fuera del rango permitido de 0 a 1."
+                )
+
+        total = (
+            self.tarifa_base
+            * cantidad
+            * (1 - descuento)
+            * (1 + impuesto)
+        )
+
+        return round(total, 2)
 
 class ReservaSala(Servicio):
     def validar_cantidad(self, cantidad):
