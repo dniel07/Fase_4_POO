@@ -12,7 +12,13 @@ class Reserva(Entidad):
             raise ReservaError("Se requiere un cliente válido.")
         if not isinstance(servicio, Servicio):
             raise ReservaError("Se requiere un servicio válido.")
+            
+        # Validar que el recurso esté disponible.
+        servicio.validar_disponibilidad() 
+        
+        # Validar la cantidad solicitada.
         servicio.validar_cantidad(cantidad)
+        
         self._cliente, self._servicio = cliente, servicio
         self._cantidad, self._impuesto, self._descuento = cantidad, impuesto, descuento
         self._estado = "pendiente"
@@ -31,6 +37,8 @@ class Reserva(Entidad):
     def confirmar(self):
         if self._estado != "pendiente":
             raise EstadoReservaError(f"No se puede confirmar una reserva {self._estado}.")
+            
+        self._servicio.validar_disponibilidad()    
         self._estado = "confirmada"
 
     def cancelar(self):
