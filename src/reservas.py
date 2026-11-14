@@ -30,9 +30,15 @@ class Reserva(Entidad):
     @property
     def servicio(self): return self._servicio
     @property
+    def cantidad(self):
+        return self._cantidad        
+    @property
     def estado(self): return self._estado
     @property
     def costo_final(self): return self._costo_final
+    @property
+    def creada_en(self):
+        return self._creada_en
 
     def confirmar(self):
         if self._estado != "pendiente":
