@@ -1,17 +1,37 @@
-"""Excepciones personalizadas del sistema."""
+"""
+Módulo: excepciones.py
+Descripción: Define las excepciones personalizadas utilizadas
+para controlar errores en el sistema Software FJ.
+"""
+
 class SoftwareFJError(Exception):
-    """Clase base de errores controlados."""
+    """Excepción base de la aplicación."""
+    pass
+
 class ValidacionError(SoftwareFJError):
-    """Error general de validación."""
+    """Error general relacionado con datos inválidos."""
+    pass
+
 class ClienteInvalidoError(ValidacionError):
-    """Datos incorrectos de cliente."""
+    """Error producido por datos incorrectos de clientes."""
+    pass
+
 class ServicioInvalidoError(ValidacionError):
-    """Datos incorrectos de servicio."""
+    """Error producido por datos incorrectos de servicios."""
+    pass
+
 class ReservaError(SoftwareFJError):
-    """Error general de reservas."""
+    """Error general relacionado con las reservas."""
+    pass
+
 class EstadoReservaError(ReservaError):
-    """Transición de estado no permitida."""
+    """Error por intentar una transición de estado no permitida."""
+    pass
+
 class RecursoNoDisponibleError(ReservaError):
-    """Recurso no disponible."""
+    """Error cuando un servicio o recurso no está disponible."""
+    pass
+
 class CalculoCostoError(SoftwareFJError):
-    """Error de cálculo."""
+    """Error producido durante la validación de costos."""
+    pass
