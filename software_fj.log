@@ -1,0 +1,32 @@
+2026-11-19 15:20:27,859 | INFO | Cliente creado: Cliente C001: Laura Gómez | laura@example.com | 3001234567
+2026-11-19 15:20:27,860 | INFO | Cliente inválido controlado: El nombre debe tener al menos 2 caracteres.
+2026-11-19 15:20:27,860 | INFO | Segundo cliente creado: Cliente C003: Carlos Ruiz | carlos@example.com | 3105550101
+2026-11-19 15:20:27,860 | INFO | Sala de reuniones: sala por hora.
+2026-11-19 15:20:27,860 | INFO | Servicio inválido controlado: La tarifa debe ser un número no negativo.
+2026-11-19 15:20:27,861 | INFO | Alquiler de portátil: alquiler por día.
+2026-11-19 15:20:27,861 | INFO | Asesoría técnica: asesoría por sesión.
+2026-11-19 15:20:27,861 | INFO | Reserva creada: Reserva R001 | Laura Gómez | Sala de reuniones | pendiente | sin calcular
+2026-11-19 15:20:27,862 | INFO | Reserva inválida controlada: Se requiere un cliente válido.
+2026-11-19 15:20:27,862 | INFO | Reserva procesada por $107100.00
+2026-11-19 15:20:27,862 | INFO | Cancelación bloqueada: No se puede cancelar una reserva procesada.
+2026-11-19 15:20:27,862 | INFO | Cálculo inválido controlado: Las horas deben ser mayores que cero.
+2026-11-19 15:20:27,862 | INFO | Equipo por 3 días: $271320.00
+2026-11-19 15:20:27,863 | INFO | Estado inválido controlado: No se puede confirmar una reserva cancelada.
+2026-11-19 15:20:27,863 | INFO | Consulta correcta: Laura Gómez
+2026-11-19 15:20:27,863 | INFO | La consulta terminó.
+2026-11-19 15:26:34,980 | INFO | Cliente creado: Cliente C001: Laura Gómez | laura@example.com | 3001234567
+2026-11-19 15:26:34,980 | INFO | Cliente inválido controlado: El nombre debe tener al menos 2 caracteres.
+2026-11-19 15:26:34,980 | INFO | Segundo cliente creado: Cliente C003: Carlos Ruiz | carlos@example.com | 3105550101
+2026-11-19 15:26:34,980 | INFO | Sala de reuniones: sala por hora.
+2026-11-19 15:26:34,981 | INFO | Servicio inválido controlado: La tarifa debe ser un número no negativo.
+2026-11-19 15:26:34,981 | INFO | Alquiler de portátil: alquiler por día.
+2026-11-19 15:26:34,981 | INFO | Asesoría técnica: asesoría por sesión.
+2026-11-19 15:26:34,981 | INFO | Reserva creada: Reserva R001 | Laura Gómez | Sala de reuniones | pendiente | sin calcular
+2026-11-19 15:26:34,981 | INFO | Reserva inválida controlada: Se requiere un cliente válido.
+2026-11-19 15:26:34,982 | INFO | Reserva procesada por $107100.00
+2026-11-19 15:26:34,982 | INFO | Cancelación bloqueada: No se puede cancelar una reserva procesada.
+2026-11-19 15:26:34,982 | INFO | Cálculo inválido controlado: Las horas deben ser mayores que cero.
+2026-11-19 15:26:34,982 | INFO | Equipo por 3 días: $271320.00
+2026-11-19 15:26:34,982 | INFO | Estado inválido controlado: No se puede confirmar una reserva cancelada.
+2026-11-19 15:26:34,983 | INFO | Consulta correcta: Laura Gómez
+2026-11-19 15:26:34,983 | INFO | La consulta terminó.
