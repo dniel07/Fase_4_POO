@@ -1,22 +1,61 @@
-"""Servicios abstractos y especializados."""
+"""
+Módulo: servicios.py
+Descripción: Define la clase abstracta Servicio y sus tres
+implementaciones especializadas para Software FJ.
+"""
+
 from abc import ABC, abstractmethod
 from .entidades import Entidad
-from .excepciones import ServicioInvalidoError, CalculoCostoError
+from .excepciones import (
+    ServicioInvalidoError,
+    CalculoCostoError,
+    RecursoNoDisponibleError
+)
 
 class Servicio(Entidad, ABC):
-    def __init__(self, identificador, nombre, tarifa_base):
+    """
+    Clase abstracta que define las características comunes
+    de los servicios ofrecidos por Software FJ.
+    """
+    
+    def __init__(self, identificador, nombre, tarifa_base, disponible=True):
         super().__init__(identificador)
         if not isinstance(nombre, str) or len(nombre.strip()) < 3:
             raise ServicioInvalidoError("Nombre de servicio inválido.")
-        if isinstance(tarifa_base, bool) or not isinstance(tarifa_base, (int, float)) or tarifa_base < 0:
+        if (isinstance(tarifa_base, bool) or not isinstance(tarifa_base, (int, float)) or tarifa_base < 0):
             raise ServicioInvalidoError("La tarifa debe ser un número no negativo.")
+        if not isinstance(disponible, bool):
+            raise ServicioInvalidoError("La disponibilidad debe ser verdadera o falsa.")
+        
         self._nombre = nombre.strip()
         self._tarifa_base = float(tarifa_base)
+        self._disponible = disponible        
 
     @property
     def nombre(self): return self._nombre
     @property
     def tarifa_base(self): return self._tarifa_base
+    @property
+    def disponible(self):
+        return self._disponible
+
+    def cambiar_disponibilidad(self, estado):
+        """Permite habilitar o deshabilitar un servicio."""
+
+        if not isinstance(estado, bool):
+            raise ServicioInvalidoError(
+                "La disponibilidad debe ser verdadera o falsa."
+            )
+
+        self._disponible = estado
+
+    def validar_disponibilidad(self):
+        """Impide utilizar un servicio no disponible."""
+
+        if not self.disponible:
+            raise RecursoNoDisponibleError(
+                f"El servicio '{self.nombre}' no está disponible."
+            )
 
     @abstractmethod
     def validar_cantidad(self, cantidad): pass
@@ -26,12 +65,30 @@ class Servicio(Entidad, ABC):
     def calcular_costo(self, cantidad=1, impuesto=0.0, descuento=0.0): pass
 
     def _total(self, cantidad, impuesto, descuento):
+        self.validar_disponibilidad()
         self.validar_cantidad(cantidad)
-        if isinstance(impuesto, bool) or not isinstance(impuesto, (int, float)) or not 0 <= impuesto <= 1:
-            raise CalculoCostoError("Impuesto fuera del rango 0 a 1.")
-        if isinstance(descuento, bool) or not isinstance(descuento, (int, float)) or not 0 <= descuento <= 1:
-            raise CalculoCostoError("Descuento fuera del rango 0 a 1.")
-        return round(self.tarifa_base * cantidad * (1-descuento) * (1+impuesto), 2)
+        for nombre, valor in (
+            ("Impuesto", impuesto),
+            ("Descuento", descuento)
+        ):
+
+            if (
+                isinstance(valor, bool)
+                or not isinstance(valor, (int, float))
+                or not 0 <= valor <= 1
+            ):
+                raise CalculoCostoError(
+                    f"{nombre} fuera del rango permitido de 0 a 1."
+                )
+
+        total = (
+            self.tarifa_base
+            * cantidad
+            * (1 - descuento)
+            * (1 + impuesto)
+        )
+
+        return round(total, 2)
 
 class ReservaSala(Servicio):
     def validar_cantidad(self, cantidad):
